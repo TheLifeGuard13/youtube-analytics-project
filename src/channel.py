@@ -70,3 +70,27 @@ class Channel:
         """Сохранить данные в файл."""
         with open(file_name, "w", encoding="utf-8") as f:
             json.dump(self.info_dict(), f, indent=2, ensure_ascii=False)
+
+    def __str__(self) -> str:
+        return f"{self.title} ({self.url})"
+
+    def __add__(self, other) -> int:
+        return self.followers + other.followers
+
+    def __sub__(self, other) -> int:
+        return self.followers - other.followers
+
+    def __gt__(self, other) -> bool:
+        return self.followers > other.followers
+
+    def __ge__(self, other) -> bool:
+        return self.followers >= other.followers
+
+    def __lt__(self, other) -> bool:
+        return self.followers < other.followers
+
+    def __le__(self, other) -> bool:
+        return self.followers <= other.followers
+
+    def __eq__(self, other) -> bool:
+        return self.followers == other.followers
