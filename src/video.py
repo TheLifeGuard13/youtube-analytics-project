@@ -11,7 +11,7 @@ class Video:
 
     def __init__(self, video_id: str):
         self.video_id = video_id
-        self.video_title = self.initialize_from_data()["video_title"]
+        self.title = self.initialize_from_data()["video_title"]
         self.video_url = self.initialize_from_data()["video_url"]
         self.view_count = self.initialize_from_data()["view_count"]
         self.like_count = self.initialize_from_data()["like_count"]
@@ -24,22 +24,32 @@ class Video:
     def initialize_from_data(self) -> dict:
         """Инициализация данных канала."""
         youtube = self.get_service()
-        video_response = (
-            youtube.videos().list(part="snippet,statistics,contentDetails,topicDetails", id=self.video_id).execute()
-        )
-        video_title: str = video_response["items"][0]["snippet"]["title"]
-        video_url: str = "https://youtu.be/" + self.video_id
-        view_count: int = video_response["items"][0]["statistics"]["viewCount"]
-        like_count: int = video_response["items"][0]["statistics"]["likeCount"]
-        return {
-            "video_title": video_title,
-            "view_count": view_count,
-            "like_count": like_count,
-            "video_url": video_url,
-        }
+        try:
+            video_response = (
+                youtube.videos()
+                .list(part="snippet,statistics,contentDetails,topicDetails", id=self.video_id)
+                .execute()
+            )
+            title: str = video_response["items"][0]["snippet"]["title"]
+            video_url: str = "https://youtu.be/" + self.video_id
+            view_count: int = video_response["items"][0]["statistics"]["viewCount"]
+            like_count: int = video_response["items"][0]["statistics"]["likeCount"]
+            return {
+                "video_title": title,
+                "view_count": view_count,
+                "like_count": like_count,
+                "video_url": video_url,
+            }
+        except IndexError:
+            return {
+                "video_title": None,
+                "view_count": None,
+                "like_count": None,
+                "video_url": None,
+            }
 
     def __str__(self) -> typing.Any:
-        return self.video_title
+        return self.title
 
 
 class PLVideo(Video):
