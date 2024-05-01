@@ -74,23 +74,23 @@ class Channel:
     def __str__(self) -> str:
         return f"{self.title} ({self.url})"
 
-    def __add__(self, other) -> int:
+    def __add__(self, other: typing.Any) -> int:
         return self.followers + other.followers
 
-    def __sub__(self, other) -> int:
+    def __sub__(self, other: typing.Any) -> int:
         return self.followers - other.followers
 
-    def __gt__(self, other) -> bool:
+    def __gt__(self, other: typing.Any) -> bool:
         return self.followers > other.followers
 
-    def __ge__(self, other) -> bool:
+    def __ge__(self, other: typing.Any) -> bool:
         return self.followers >= other.followers
 
-    def __lt__(self, other) -> bool:
+    def __lt__(self, other: typing.Any) -> bool:
         return self.followers < other.followers
 
-    def __le__(self, other) -> bool:
+    def __le__(self, other: typing.Any) -> bool:
         return self.followers <= other.followers
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: typing.Any) -> bool:
         return self.followers == other.followers
